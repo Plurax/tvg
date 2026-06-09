@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import NewsCard from '../components/NewsCard.astro';
+import AbteilungCard from '../components/AbteilungCard.astro';
+
+const abteilungen = (await getCollection('abteilungen')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const latest = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const features = [
+  {
+    title: 'Mitglied werden',
+    text: 'Vier Abteilungen, ein Verein – finde deinen Sport und werde Teil der Gemeinschaft.',
+    href: '/mitgliedschaft',
+    label: 'Jetzt mitmachen',
+  },
+  {
+    title: 'Abteilungen entdecken',
+    text: 'Tennis, Tischtennis, Breitensport und Handball – für jedes Alter das passende Angebot.',
+    href: '/abteilungen',
+    label: 'Zu den Abteilungen',
+  },
+  {
+    title: 'Kontakt & Ehrenamt',
+    text: 'Fragen, Anregungen oder Lust mitzuhelfen? Wir freuen uns auf dich.',
+    href: '/kontakt',
+    label: 'Kontakt aufnehmen',
+  },
+];
+---
+
+<BaseLayout title="TV Geislar 1925 e.V." fullWidth>
+  <HeroSlider />
+
+  <!-- Intro -->
+  <section class="mx-auto max-w-6xl px-4 py-14 text-center">
+    <p class="text-sm font-semibold uppercase tracking-wide text-secondary-600">Seit 1925</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-primary sm:text-4xl">
+      Willkommen beim TV Geislar 1925 e.V.
+    </h1>
+    <p class="mx-auto mt-4 max-w-2xl text-slate-600">
+      Der Turnverein Geislar ist die Sportgemeinschaft in Bonn-Geislar – mit vier Abteilungen,
+      Wettkampf- und Breitensport und viel Platz für Bewegung, Gemeinschaft und Spaß.
+    </p>
+  </section>
+
+  <!-- Feature cards -->
+  <section class="mx-auto max-w-6xl px-4 pb-4">
+    <div class="grid gap-6 md:grid-cols-3">
+      {features.map((f) => (
+        <div class="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 class="text-lg font-semibold text-primary">{f.title}</h2>
+          <p class="mt-2 flex-1 text-sm text-slate-600">{f.text}</p>
+          <a class="mt-4 inline-block text-sm font-semibold text-secondary-600 hover:text-secondary-700" href={f.href}>
+            {f.label} →
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Abteilungen -->
+  <section class="mx-auto max-w-6xl px-4 py-14">
+    <div class="flex items-end justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-primary">Unsere Abteilungen</h2>
+        <p class="mt-1 text-slate-600">Vier Sportarten unter einem Dach.</p>
+      </div>
+      <a class="hidden text-sm font-semibold text-secondary-600 hover:text-secondary-700 sm:block" href="/abteilungen">
+        Alle ansehen →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {abteilungen.map((a) => (
+        <AbteilungCard
+          title={a.data.title}
+          summary={a.data.summary}
+          href={`/abteilungen/${a.id}`}
+          image={a.data.image}
+          accent={a.data.accent}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- News -->
+  <section class="bg-primary-50">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <div class="flex items-end justify-between">
+        <h2 class="text-2xl font-bold text-primary">Neuigkeiten</h2>
+        <a class="text-sm font-semibold text-secondary-600 hover:text-secondary-700" href="/neuigkeiten">
+          Alle ansehen →
+        </a>
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        {latest.map((p) => (
+          <NewsCard
+            title={p.data.title}
+            date={p.data.date}
+            category={p.data.category}
+            href={`/neuigkeiten/${p.id}`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

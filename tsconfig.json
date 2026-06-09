@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "preserve",
+    "types": ["astro/client"]
+  },
+  "include": ["src/**/*", "astro.config.*"],
+  "exclude": ["dist", "node_modules"]
+}

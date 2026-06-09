@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmtDate = post.data.date.toLocaleDateString('de-DE', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={`${post.data.title} – TV Geislar 1925 e.V.`}>
+  <article class="prose prose-slate max-w-none prose-headings:text-primary prose-a:text-secondary-600">
+    <p class="not-prose mb-2 text-sm">
+      <a class="text-secondary-600 hover:text-secondary-700" href="/neuigkeiten">← Neuigkeiten</a>
+    </p>
+    <h1>{post.data.title}</h1>
+    <p class="not-prose flex flex-wrap items-center gap-3 text-xs text-slate-500">
+      <time>{fmtDate}</time>
+      {post.data.author && <span>von {post.data.author}</span>}
+      {post.data.category && (
+        <span class="rounded bg-secondary-50 px-2 py-0.5 font-medium text-secondary-700">
+          {post.data.category}
+        </span>
+      )}
+    </p>
+    <Content />
+  </article>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NewsCard from '../../components/NewsCard.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Neuigkeiten – TV Geislar 1925 e.V.">
+  <section class="space-y-3">
+    <h1 class="text-3xl font-bold tracking-tight text-primary">Neuigkeiten</h1>
+    <p class="max-w-prose text-slate-600">Aktuelles und Berichte aus dem TV Geislar 1925 e.V.</p>
+  </section>
+
+  <section class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((p) => (
+      <NewsCard
+        title={p.data.title}
+        date={p.data.date}
+        category={p.data.category}
+        href={`/neuigkeiten/${p.id}`}
+      />
+    ))}
+  </section>
+</BaseLayout>

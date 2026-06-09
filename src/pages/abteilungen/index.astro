@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AbteilungCard from '../../components/AbteilungCard.astro';
+
+const abteilungen = (await getCollection('abteilungen')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout title="Abteilungen – TV Geislar 1925 e.V.">
+  <section class="space-y-3">
+    <h1 class="text-3xl font-bold tracking-tight text-primary">Abteilungen</h1>
+    <p class="max-w-prose text-slate-600">
+      Der TV Geislar bietet Sport in vier Abteilungen. Wähle deinen Sport und erfahre mehr über
+      Training, Ansprechpartner und aktuelle Neuigkeiten.
+    </p>
+  </section>
+
+  <section class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {abteilungen.map((a) => (
+      <AbteilungCard
+        title={a.data.title}
+        summary={a.data.summary}
+        href={`/abteilungen/${a.id}`}
+        image={a.data.image}
+        accent={a.data.accent}
+      />
+    ))}
+  </section>
+</BaseLayout>

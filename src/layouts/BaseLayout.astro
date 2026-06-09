@@ -1,0 +1,47 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  fullWidth?: boolean;
+}
+
+const {
+  title = 'TV Geislar 1925 e.V.',
+  description = 'Turnverein Geislar 1925 e.V. – Tennis, Tischtennis, Breitensport und Handball in Bonn-Geislar.',
+  fullWidth = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/TVG_Logo_blau_M_2026_01.png" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="flex min-h-dvh flex-col">
+      <Header />
+
+      <main class="flex-1">
+        {
+          fullWidth ? (
+            <slot />
+          ) : (
+            <div class="mx-auto max-w-6xl px-4 py-10">
+              <slot />
+            </div>
+          )
+        }
+      </main>
+
+      <Footer />
+    </div>
+  </body>
+</html>

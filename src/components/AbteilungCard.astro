@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  image?: string;
+  accent?: string;
+}
+
+const { title, summary, href, image, accent } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
+>
+  <div
+    class="relative flex h-36 items-end bg-primary"
+    style={accent ? `background-color:${accent}` : undefined}
+  >
+    {image && (
+      <img
+        src={image}
+        alt={title}
+        class="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
+      />
+    )}
+    {!image && (
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-primary to-secondary"
+        style={accent ? `background:linear-gradient(135deg, ${accent}, #41B6E6)` : undefined}
+      ></div>
+    )}
+    <h3 class="relative z-10 w-full bg-gradient-to-t from-black/50 to-transparent p-4 text-xl font-bold text-white">
+      {title}
+    </h3>
+  </div>
+  <div class="flex flex-1 flex-col p-5">
+    <p class="text-sm text-slate-600">{summary}</p>
+    <span class="mt-auto pt-4 text-sm font-semibold text-secondary-600 group-hover:text-secondary-700">
+      Mehr erfahren →
+    </span>
+  </div>
+</a>
