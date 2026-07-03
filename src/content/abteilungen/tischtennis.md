@@ -5,7 +5,7 @@ summary: "Tischtennis im Wettkampf- und Freizeitbetrieb – mehrere Herrenmannsc
 accent: "#41B6E6"
 branch: "tischtennis"
 newsCategory: "TT-News"
-# image: "/abteilungen/tischtennis.jpg"
+image: "/tischtennis/2017-04-02-tt-wiederaufstieg-in-kreisliga.jpg"
 trainingszeiten:
   - gruppe: "Aktive / Mannschaften"
     tag: "TODO"

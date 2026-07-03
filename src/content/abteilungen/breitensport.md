@@ -4,7 +4,7 @@ order: 3
 summary: "Turnen, Gymnastik und Fitness für Jung und Alt – Bewegung und Gemeinschaft für alle."
 accent: "#2a4d6d"
 branch: "breitensport"
-# image: "/abteilungen/breitensport.jpg"
+image: "/breitensport/2017-selbstverteidigung_kl-2.jpg"
 trainingszeiten:
   - gruppe: "Kinderturnen"
     tag: "TODO"

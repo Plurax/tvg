@@ -4,7 +4,7 @@ order: 4
 summary: "Handball in Spielgemeinschaft – Training und Spielbetrieb für mehrere Altersklassen."
 accent: "#1f7daf"
 branch: "handball"
-# image: "/abteilungen/handball.jpg"
+image: "/handball/2013_herren_vladi_november09.jpg"
 trainingszeiten:
   - gruppe: "Jugend"
     tag: "TODO"
